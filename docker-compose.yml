@@ -16,7 +16,7 @@ services:
       - AWS_ENDPOINT_URL=http://localstack:4566
 
   localstack:
-    container_name: localstack-main
+    container_name: localstack
     image: localstack/localstack
     ports:
       - 4566:4566            
