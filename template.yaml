@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "Hono App"
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  HonoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: index.handler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      Events:
+        Index:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+        Hello:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: GET
+        All:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints: 
+        - src/index.ts
+
+Outputs:
+  LocalStackApi:
+    Description: "LocalStack API Gateway endpoint URL"
+    Value: !Sub "http://localhost:4566/restapis/${ServerlessRestApi}/Prod/_user_request_/"
+  AWSLambdaApi:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  Function:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt HelloWorldFunction.Arn
+  FunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt HelloWorldFunctionRole.Arn
