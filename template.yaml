@@ -26,6 +26,24 @@ Resources:
       Name: !Sub "hono-${StageName}"
       Description: "Hono secret"
       SecretString: !Sub '{"name": "hono-api", "email": "hono@hono.com"}'
+  
+  # DynamoDB
+  HonoTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "hono-${StageName}"
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expireAt
+        Enabled: true
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
 
   # Lambda Function
   HonoFunction:
@@ -55,6 +73,12 @@ Resources:
             Path: /get-secret-value
             Method: GET
             RestApiId: !Ref HonoApi
+        DynamoDBAccess:
+          Type: Api
+          Properties:
+            Path: /dynamodb/{proxy+}
+            Method: ANY
+            RestApiId: !Ref HonoApi
         # All:
         #   Type: Api
         #   Properties:
@@ -74,6 +98,9 @@ Outputs:
   StageName:
     Description: "API Gateway stage name"
     Value: !Ref StageName
+  APIGatewayId:
+    Description: "API Gateway ID"
+    Value: !Ref HonoApi
   LocalStackApi:
     Description: "LocalStack API Gateway endpoint URL"
     Value: !Sub "http://localhost:4566/restapis/${HonoApi}/${StageName}/_user_request_/"
