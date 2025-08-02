@@ -1,9 +1,39 @@
 version = 0.1
 
+# Development
 [default.deploy.parameters]
-stack_name = "hono-app"
+stack_name = "hono-app-dev"
 resolve_s3 = true
-s3_prefix = "hono-app"
-region = "us-east-1"
+s3_prefix = "hono-app-dev"
+region = "ap-northeast-1"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
+parameter_overrides = "StageName=dev"
+confirm_changeset = false
+disable_rollback = false
+
+# Staging
+[staging.deploy.parameters]
+stack_name = "hono-app-staging"
+resolve_s3 = true
+s3_prefix = "hono-app-staging"
+region = "ap-northeast-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = "StageName=staging"
+confirm_changeset = true
+disable_rollback = false
+
+# Production
+[prod.deploy.parameters]
+stack_name = "hono-app-prod"
+resolve_s3 = true
+s3_prefix = "hono-app-prod"
+region = "ap-northeast-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = "StageName=prod"
+confirm_changeset = true
+disable_rollback = false
+notification_arns = []
+tags = "Environment=production Project=hono-app Team=backend"

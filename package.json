@@ -5,7 +5,12 @@
     "local:delete": "samlocal delete --no-prompts",
     "local:build": "samlocal build",
     "local:deploy": "samlocal deploy --no-confirm-changeset --no-fail-on-empty-changeset",
-    "localstack": "run-s local:delete local:build local:deploy"
+    "localstack": "run-s local:delete local:build local:deploy",
+    "build": "sam build",
+    "deploy": "sam deploy",
+    "deploy:dev": "run-s build deploy",
+    "deploy:staging": "run-s build deploy --config-env staging",
+    "deploy:prod": "run-s build deploy --config-env prod"
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
