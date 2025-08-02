@@ -22,7 +22,7 @@ services:
       - 4566:4566            
       - 4510-4559:4510-4559  # external services port range
     environment:
-      - SERVICES=logs,lambda,apigateway,s3,cloudformation,iam
+      - SERVICES=logs,lambda,apigateway,s3,cloudformation,iam,secretsmanager
     env_file:
       - .env
     volumes:

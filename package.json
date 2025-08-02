@@ -12,6 +12,9 @@
     "npm-run-all2": "^6.2.0"
   },
   "dependencies": {
-    "hono": "^4.8.10"
+    "@aws-sdk/client-secrets-manager": "^3.859.0",
+    "hono": "^4.8.10",
+    "install": "^0.13.0",
+    "npm": "^11.5.2"
   }
 }

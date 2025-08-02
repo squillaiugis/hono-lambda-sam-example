@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: "Hono App"
 
@@ -18,6 +18,14 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       StageName: !Ref StageName
+
+  # Secrets Manager
+  HonoSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: !Sub "hono-${StageName}"
+      Description: "Hono secret"
+      SecretString: !Sub '{"name": "hono-api", "email": "hono@hono.com"}'
 
   # Lambda Function
   HonoFunction:
@@ -41,20 +49,26 @@ Resources:
             Path: /hello
             Method: GET
             RestApiId: !Ref HonoApi
-        All:
+        GetSecretValue:
           Type: Api
           Properties:
-            Path: /{proxy+}
-            Method: ANY
+            Path: /get-secret-value
+            Method: GET
             RestApiId: !Ref HonoApi
+        # All:
+        #   Type: Api
+        #   Properties:
+        #     Path: /{proxy+}
+        #     Method: ANY
+        #     RestApiId: !Ref HonoApi
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
         Minify: true
         Target: "es2020"
         Sourcemap: true
-        EntryPoints: 
-        - src/index.ts
+        EntryPoints:
+          - src/index.ts
 
 Outputs:
   StageName:
