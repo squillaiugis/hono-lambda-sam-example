@@ -2,5 +2,8 @@
   "name": "${localWorkspaceFolderBasename}",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "app",
-  "workspaceFolder": "/app"
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": { "extensions": ["esbenp.prettier-vscode"] }
+  }
 }
