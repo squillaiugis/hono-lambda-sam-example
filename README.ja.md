@@ -1,6 +1,6 @@
-# Hono Lambda SAM テンプレート
+# Hono Lambda SAM Example  
 
-Honoフレームワークを使用したAWS Lambda + SAM（Serverless Application Model）のテンプレートプロジェクトです。TypeScriptで書かれたサーバーレスAPIを、AWS Lambda、API Gateway、DynamoDB、Secrets Managerと連携して構築できます。
+Honoフレームワークを使用したAWS Lambda + SAM（Serverless Application Model）のサンプルプロジェクトです。TypeScriptで書かれたサーバーレスAPIを、AWS Lambda、API Gateway、DynamoDB、Secrets Managerと連携して構築できます。
 
 ## 🚀 機能
 
@@ -26,7 +26,7 @@ Honoフレームワークを使用したAWS Lambda + SAM（Serverless Applicatio
 
 ```bash
 git clone <repository-url>
-cd hono-lambda-sam-template
+cd hono-lambda-sam-example
 ```
 
 ### 2. 依存関係のインストール
@@ -83,7 +83,7 @@ npm run deploy:prod
 ## 📁 プロジェクト構造
 
 ```
-hono-lambda-sam-template/
+hono-lambda-sam-example/
 ├── src/
 │   ├── index.ts              # メインアプリケーション
 │   ├── env.ts                # 環境変数と型定義

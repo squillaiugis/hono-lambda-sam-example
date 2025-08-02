@@ -1,6 +1,6 @@
-# Hono Lambda SAM Template
+# Hono Lambda SAM Example
 
-A template project for AWS Lambda + SAM (Serverless Application Model) using the Hono framework. Build serverless APIs written in TypeScript with integration to AWS Lambda, API Gateway, DynamoDB, and Secrets Manager.
+A example project for AWS Lambda + SAM (Serverless Application Model) using the Hono framework. Build serverless APIs written in TypeScript with integration to AWS Lambda, API Gateway, DynamoDB, and Secrets Manager.
 
 ## 🚀 Features
 
@@ -26,7 +26,7 @@ A template project for AWS Lambda + SAM (Serverless Application Model) using the
 
 ```bash
 git clone <repository-url>
-cd hono-lambda-sam-template
+cd hono-lambda-sam-example
 ```
 
 ### 2. Install Dependencies
@@ -83,7 +83,7 @@ npm run deploy:prod
 ## 📁 Project Structure
 
 ```
-hono-lambda-sam-template/
+hono-lambda-sam-example/
 ├── src/
 │   ├── index.ts              # Main application
 │   ├── env.ts                # Environment variables and type definitions
