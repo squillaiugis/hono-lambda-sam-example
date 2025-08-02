@@ -2,11 +2,24 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: "Hono App"
 
+Parameters:
+  StageName:
+    Type: String
+    Default: v1
+    Description: "API Gateway stage name"
+
 Globals:
   Function:
     Timeout: 3
 
 Resources:
+  # API Gateway
+  HonoApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref StageName
+
+  # Lambda Function
   HonoFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -21,16 +34,19 @@ Resources:
           Properties:
             Path: /
             Method: GET
+            RestApiId: !Ref HonoApi
         Hello:
           Type: Api
           Properties:
             Path: /hello
             Method: GET
+            RestApiId: !Ref HonoApi
         All:
           Type: Api
           Properties:
             Path: /{proxy+}
             Method: ANY
+            RestApiId: !Ref HonoApi
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
@@ -41,15 +57,18 @@ Resources:
         - src/index.ts
 
 Outputs:
+  StageName:
+    Description: "API Gateway stage name"
+    Value: !Ref StageName
   LocalStackApi:
     Description: "LocalStack API Gateway endpoint URL"
-    Value: !Sub "http://localhost:4566/restapis/${ServerlessRestApi}/Prod/_user_request_/"
+    Value: !Sub "http://localhost:4566/restapis/${HonoApi}/${StageName}/_user_request_/"
   AWSLambdaApi:
     Description: "API Gateway endpoint URL for Prod stage"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://${HonoApi}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/"
   Function:
     Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
+    Value: !GetAtt HonoFunction.Arn
   FunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+    Value: !GetAtt HonoFunctionRole.Arn
