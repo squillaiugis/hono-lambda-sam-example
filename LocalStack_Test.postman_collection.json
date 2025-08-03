@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "2e657bb5-c432-4445-ba2d-cef23ef58193",
+		"name": "LocalStack Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43302397"
+	},
+	"item": [
+		{
+			"name": "SecretsManager",
+			"item": [
+				{
+					"name": "Get string value",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/secrets-manager/get",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"secrets-manager",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get json value",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/secrets-manager/get-json",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"secrets-manager",
+								"get-json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DynamoDB",
+			"item": [
+				{
+					"name": "Put item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "value",
+									"value": "put a new value",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/dynamodb/put/123456789",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"dynamodb",
+								"put",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/dynamodb/get/123456789",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"dynamodb",
+								"get",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "value",
+									"value": "update a value",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/dynamodb/update/123456789",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"dynamodb",
+								"update",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update item Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/dynamodb/delete/123456789",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"dynamodb",
+								"delete",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update item Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/dynamodb/delete/123456789",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"dynamodb",
+								"delete",
+								"123456789"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "APIGatewayId",
+			"value": "qxturzvunl",
+			"type": "string"
+		},
+		{
+			"key": "StageName",
+			"value": "dev",
+			"type": "string"
+		},
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:4566/restapis/{{APIGatewayId}}/{{StageName}}/_user_request_",
+			"type": "string"
+		}
+	]
+}
