@@ -86,18 +86,20 @@ npm run deploy:prod
 hono-lambda-sam-example/
 ├── src/
 │   ├── index.ts              # Main application
-│   ├── env.ts                # Environment variables and type definitions
 │   ├── routes/
 │   │   ├── DynamoDB.ts       # DynamoDB related routes
 │   │   └── SecretsManager.ts # Secrets Manager related routes
-│   └── middleware/
-│       ├── DynamoDB.ts       # DynamoDB operation middleware
-│       └── SecretsManager.ts # Secrets Manager operation middleware
+│   └── helper/
+│       ├── DynamoDBHelper.ts # DynamoDB operation helper
+│       └── SecretsManagerHelper.ts # Secrets Manager operation helper
 ├── template.yaml             # SAM template
 ├── samconfig.toml           # SAM configuration file
 ├── docker-compose.yml       # Local development environment
 ├── Dockerfile               # Application container
-└── package.json            # Project configuration
+├── tsconfig.json            # TypeScript configuration
+├── package.json             # Project configuration
+├── LocalStack_Test.postman_collection.json # Postman collection for testing
+└── LICENSE                  # License file
 ```
 
 ## 🔧 Available Scripts
