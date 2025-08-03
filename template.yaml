@@ -23,7 +23,7 @@ Resources:
   HonoSecret:
     Type: AWS::SecretsManager::Secret
     Properties:
-      Name: !Sub "hono-${StageName}"
+      Name: !Sub "hono-secrets"
       Description: "Hono secret"
       SecretString: !Sub '{"name": "hono-api", "email": "hono@hono.com"}'
   
@@ -31,7 +31,7 @@ Resources:
   HonoTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub "hono-${StageName}"
+      TableName: !Sub "hono-dynamodb"
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -54,6 +54,10 @@ Resources:
       Runtime: nodejs22.x
       Architectures:
         - x86_64
+      Environment:
+        Variables:
+          DynamoTable: !Ref HonoTable
+          SecretsManager: !Ref HonoSecret
       Events:
         Index:
           Type: Api
@@ -70,7 +74,7 @@ Resources:
         GetSecretValue:
           Type: Api
           Properties:
-            Path: /get-secret-value
+            Path: /secrets-manager/{proxy+}
             Method: GET
             RestApiId: !Ref HonoApi
         DynamoDBAccess:
